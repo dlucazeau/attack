@@ -78,11 +78,12 @@ export class AttackService
         ];
         console.debug(p);
         const latLngs: L.LatLng[] = [];
-        // const nbPoints = 4
+        const nb = 10;
+        const epsilon = 1 / nb;
 
-        for (let idx = 1; idx < 4; idx++)
+        for (let idx = 0; idx <= nb; idx++)
         {
-            const t = idx + 0.25;
+            const t = idx * epsilon;
             // const x = (1 - t) * (1 - t) * p[0].x + 2 * (1 - t) * t * p[1].x + t * t * p[2].x;
             const x = this.computeInterpolation(t, p[0].x, p[1].x, p[2].x);
             // const y = (1 - t) * (1 - t) * p[0].y + 2 * (1 - t) * t * p[1].y + t * t * p[2].y;
@@ -160,8 +161,8 @@ export class AttackService
             x2 = tmpx;
         }
 
-        const min: number = 1,
-            max: number = 7,
+        const min: number = 2.5,
+            max: number = 7.5,
             arcIntensity: number = parseFloat((Math.random() * (max - min) + min).toFixed(2)),
             radian: number = Math.atan(-((y2 - y1) / (x2 - x1))),
             r: number = Math.sqrt(x2 - x1) + Math.sqrt(y2 - y1),
